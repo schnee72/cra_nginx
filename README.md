@@ -70,7 +70,7 @@ The next thing is to make nginx do a replacement on the script tags in the index
   sub_filter "##NONCE##" $request_id;
 ```
 
-For this to work the version of nginx you are using must have been built to support `--with-http_sub_module`. You can see if yours does with `nginx -V`. This will look for `##NONCE##` in the index.html and replace it with the value of `$request_id`.
+For this to work the version of nginx you are using must have been built to support `--with-http_sub_module`. You can see if yours does with `nginx -V`. This will look for `##NONCE##` in the index.html and replace it with the value of `$request_id`. The version of nginx included with Debian 11 has it enabled out of the box.
 
 The next thing was to get the index.html to have an attribute on the script tags like this: `nonce="##NONCE##"`. Lots of information said that adding `__webpack_nonce__ = "##NONCE##;` as the first line of the entry file index.js would inject `##NONCE##` to all the script tags that webpack injected into index.html when running `npm run build` to create the build to be deployed to the server. This did not work, I am not sure why exactly, if it is someting that CRA is doing, or if it is no longer supported by webpack. 
 

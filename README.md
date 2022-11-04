@@ -1,7 +1,7 @@
 # cra_nginx
 Securing create-react-app hosted on nginx
 
-I was setting up a site built with create-react-app and hosting it on a VPS using Debian 11 wiht nginx as the webserver, and I found some challenges to securing it that I wanted to document the solutions I ended up with. Mostly just for my own benifit in case I needed to do it again, but it might be useful to others too. By no means should this be considered the ideal setup, it is just what I ended up wiht after several days of researching and experimenting.
+I was setting up a site built with create-react-app and hosting it on a VPS using Debian 11 with nginx as the webserver, and I found some challenges to securing it that I wanted to document the solutions I ended up with. Mostly just for my own benifit in case I needed to do it again, but it might be useful to others too. By no means should this be considered the ideal setup, it is just what I ended up wiht after several days of researching and experimenting.
 
 The first thing I did was purchage a certificate. This was straightforward and there are plenty of good resources available to assist with this.
 

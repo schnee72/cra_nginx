@@ -107,6 +107,7 @@ These are all the pieces it took to get an A+ on the Google CSP Evaluator. Here 
 ```
 server {
         listen 443 ssl;
+        listen [::]:443 ssl;
         
         gzip on;
         gzip_types      text/plain application/xml;

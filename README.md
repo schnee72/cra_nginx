@@ -56,7 +56,7 @@ Setting up nginx to inject a unique nonce with each response first required sett
            frame-ancestors 'self';
            frame-src 'self';
            object-src 'none';
-           require-trusted-types-for 'script;
+           require-trusted-types-for 'script';
            script-src 'nonce-$request_id' 'strict-dynamic' 'unsafe-inline' https:;
            style-src 'self';";
 ```
@@ -133,7 +133,7 @@ server {
                   frame-ancestors 'self';
                   frame-src 'self';
                   object-src 'none';
-                  require-trusted-types-for 'script;
+                  require-trusted-types-for 'script';
                   script-src 'nonce-$request_id' 'strict-dynamic' 'unsafe-inline' https:;
                   style-src 'self';";
 

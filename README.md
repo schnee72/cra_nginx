@@ -125,7 +125,8 @@ server {
         ssl_session_cache shared:SSL:10m;
         ssl_stapling on;
         ssl_stapling_verify on;
-
+  
+        # chrome won't honor the CSP header if there are linebreaks, so have to put it all on a single line
         set $csp "default-src 'none'; base-uri 'none'; img-src 'self'; form-action 'none'; frame-ancestors 'self'; frame-src 'self'; object-src 'none'; require-trusted-types-for 'script'; script-src 'nonce-$request_id' 'strict-dynamic' 'unsafe-inline' https:; style-src 'self';";
         
         root /var/www/example.com/html;

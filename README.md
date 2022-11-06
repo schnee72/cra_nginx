@@ -126,23 +126,15 @@ server {
         ssl_stapling on;
         ssl_stapling_verify on;
 
-        set $csp "default-src 'none';
-                  base-uri 'none';
-                  img-src 'self';
-                  form-action 'none';
-                  frame-ancestors 'self';
-                  frame-src 'self';
-                  object-src 'none';
-                  require-trusted-types-for 'script';
-                  script-src 'nonce-$request_id' 'strict-dynamic' 'unsafe-inline' https:;
-                  style-src 'self';";
-
+        set $csp "default-src 'none'; base-uri 'none'; img-src 'self'; form-action 'none'; frame-ancestors 'self'; frame-src 'self'; object-src 'none'; require-trusted-types-for 'script'; script-src 'nonce-$request_id' 'strict-dynamic' 'unsafe-inline' https:; style-src 'self';";
+        
         root /var/www/example.com/html;
         index index.html index.htm;
 
         server_name example.com;
 
         location / {
+                add_header Cache-Control "max-age=31536000, no-cache";
                 add_header Content-Security-Policy "${csp}";
                 add_header Permissions-Policy "fullscreen=(self)";
                 add_header Referrer-Policy "strict-origin";

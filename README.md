@@ -45,7 +45,7 @@ So although using the meta tag approach provides a good amount of protection, us
 
 One of the biggest challenges to adding a CSP header with nginx is being able to use the `script-src` directive with `strict-dynamic` using a nonce that is populated in all the script tags in the `index.html` file dynamically by the server for each request. This challenge seems to be why most of the information I found suggested using the meta tag method. But it seems that using the meta tag has another limitation that can be overcome by setting a nonce value on the server for each request. The methods to add CSP via a meta tag generate a nonce value at build time and inject it into the script tags then. Since it uses the same nonce each time, it is open to attack. Other suggestions don't use `strict-dynamic` and nonces at a all, they just set `script-src` to `self` which ensures scripts are only loaded from the site itself, but there are known vulnerabilities with this.
 
-Setting up nginx to inject a unique nonce with each response first required setting up a variable `$csp` that that had the unique value that would then be used to set the header. Here is the section of the nginx config file for my site:
+Setting up nginx to inject a unique nonce with each response first required setting up a variable `$csp` that that had the unique value that would then be used to set the header. Here is the section of the nginx config file for my site (I left the line breaks here to make it readable, but chrome won't honor it if there are line breaks):
 
 ```
  set $csp "default-src 'none';

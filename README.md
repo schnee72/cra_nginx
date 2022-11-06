@@ -25,7 +25,7 @@ The next thing was to add recommended response headers, I will leave the `Conten
 
 ```
   add_header Permissions-Policy "fullscreen=(self)";
-  add_header Referrer-Policy "strict-origin";
+  add_header Referrer-Policy "strict-origin" always;
   add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
   add_header X-Content-Type-Options "nosniff" always;
   add_header X-Frame-Options "SAMEORIGIN" always;
@@ -80,19 +80,20 @@ Here is my script `nonce.js`:
 ```
 const {promises: fsPromises} = require('fs');
 
-async function replaceInFile(filename, replacement) {
-  try {
-    const contents = await fsPromises.readFile(filename, 'utf-8');
-    const replaced = contents.replace(/<script "/g, replacement);
-
-    await fsPromises.writeFile(filename, replaced);
-    console.log("nonce added to script");
+async function addNonce() {
+  try { 
+    const fileName = 'build/index.html';
+    const contents = await fsPromises.readFile(fileName, 'utf-8');
+    let replaced = contents.replace(/<script defer=/g, '<script nonce="**CSP_NONCE**" defer=');
+    await fsPromises.writeFile(fileName, replaced);
+    console.log(`Added nonce to script tag in ${fileName} for CSP`);
   } catch (err) {
     console.log(err);
   }
 }
 
-replaceInFile('build/index.html', '<script nonce="##NONCE##" ');
+addNonce();
+
 ```
 
 Here is how it looks in package.json:
@@ -138,7 +139,7 @@ server {
                 add_header Cache-Control "max-age=31536000, no-cache";
                 add_header Content-Security-Policy "${csp}";
                 add_header Permissions-Policy "fullscreen=(self)";
-                add_header Referrer-Policy "strict-origin";
+                add_header Referrer-Policy "strict-origin" always;
                 add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
                 add_header X-Content-Type-Options "nosniff" always;
                 add_header X-Frame-Options "SAMEORIGIN" always;
